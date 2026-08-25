@@ -21,3 +21,19 @@ This repository contains:
 The project is primarily built with Jupyter Notebooks (88.8%) for interactive machine learning development and Python scripts (11.2%) for automation tasks.
 
 ## Project Structure
+
+
+
+## Installation
+
+### Prerequisites
+- Python 3.7+
+- Jupyter Notebook or JupyterLab
+- pip (Python package manager)
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/nachman1998/workshop2.0.git
+   cd workshop2.0
