@@ -57,7 +57,7 @@ The repository contains notebooks for experimenting with:
 
 
 # Usage Guide
-## 1. Record Data Using the Wikipedia Bot
+## 1. Record Data 
 
 The `record_scr.py` script can be used as a wrapper for Playwright-based recording scripts.
 
@@ -81,6 +81,7 @@ at the end the output directory will contain pacp and har with the basename conc
 ## 2. Process Recorded Data
 
 The main processing pipeline can be executed using:
+it is necessary that all files in data_processing will be in the same folder
 
 ```powershell
 python .\data_processing\process_pipeline.py --input_dir .\dir_name --out_file_name FolwPic_Set --parse --TPS 15 --DELTA_T 15
@@ -133,11 +134,12 @@ input_dir/
 ```
 ---
 
+## 3. Anomaly detection
 
+for this part use our notebooks:
+1. anomaly-detection-our-autoencodr.ipynb
+2. anomaly-detection-pretrained-models.ipynb
 
-# Author
-
-**Nachman Rog**
-
-GitHub: https://github.com/nachman1998
-
+preferably in kaggle were you can find our Flowpic data in:
+https://www.kaggle.com/nachmanrog/datasets
+and our autoencoder model is added to this repo
