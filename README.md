@@ -11,6 +11,10 @@ The repository includes data-processing pipelines, Playwright bots for collectin
 ```text
 workshop2.0/
 │
+├── data/
+|    ├── filterd_sc_bot_csv
+|
+|
 ├── data_processing/
 │   ├── process_pipeline.py
 │   └── ...
@@ -51,94 +55,16 @@ The repository contains notebooks for experimenting with:
 
 ---
 
-# Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/nachman1998/workshop2.0.git
-cd workshop2.0
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment on Windows:
-
-```powershell
-.venv\Scripts\activate
-```
-
-On Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-Install the main Python dependencies:
-
-```bash
-pip install numpy pandas matplotlib scikit-learn torch torchvision opencv-python jupyter playwright
-```
-
-Install Playwright browsers:
-
-```bash
-playwright install
-```
-
----
 
 # Usage Guide
-
-## 1. Process STS Data
-
-The main processing pipeline can be executed using:
-
-```powershell
-python .\python_for_handin\data_processing\process_pipeline.py --input_dir .\python_for_handin\sts\ --out_file_name sc_ok_sts --parse --TPS 15 --DELTA_T 15
-```
-
-### Parameters
-
-| Argument          | Description                                           |
-| ----------------- | ----------------------------------------------------- |
-| `--input_dir`     | Directory containing the input files                  |
-| `--out_file_name` | Name of the generated output                          |
-| `--parse`         | Enables parsing of the input data                     |
-| `--TPS`           | Time-period parameter used by the processing pipeline |
-| `--DELTA_T`       | Time-difference parameter used during processing      |
-
-### Example
-
-```powershell
-python .\python_for_handin\data_processing\process_pipeline.py `
-    --input_dir .\python_for_handin\sts\ `
-    --out_file_name sc_ok_sts `
-    --parse `
-    --TPS 15 `
-    --DELTA_T 15
-```
-
-The processed data is generated according to the options supplied to the pipeline.
-
----
-
-## 2. Record Data Using the Wikipedia Bot
+## 1. Record Data Using the Wikipedia Bot
 
 The `record_scr.py` script can be used as a wrapper for Playwright-based recording scripts.
 
 Example:
 
 ```powershell
-python .\python_for_handin\record_scr.py `
-    --PythonScript .\python_for_handin\playwright_wiki_bot.py `
-    --Count 2 `
-    --CaptureName ok_wiki `
-    --output_dir .\python_for_handin\sts
+python .\record_scr.py --PythonScript .\playwright_wiki_bot.py --Count 2 --CaptureName basename_of_pacp_&_har --output_dir .\dir_name
 ```
 
 ### Parameters
@@ -147,209 +73,67 @@ python .\python_for_handin\record_scr.py `
 | ---------------- | --------------------------------------------- |
 | `--PythonScript` | Playwright script that should be executed     |
 | `--Count`        | Number of recordings/executions to perform    |
-| `--CaptureName`  | Name assigned to the captured data            |
+| `--CaptureName`  | Basename assigned to the captured pcap and har data            |
 | `--output_dir`   | Directory where the captured output is stored |
 
-### Example
+at the end the output directory will contain pacp and har with the basename concatenated with number of recording   
 
-The command above runs the Wikipedia automation script twice and stores the resulting recordings in:
+## 2. Process Recorded Data
 
-```text
-.\python_for_handin\sts\
-```
-
-with the capture name:
-
-```text
-ok_wiki
-```
-
----
-
-## 3. Record SoundCloud Data
-
-The SoundCloud Playwright script can be executed directly:
+The main processing pipeline can be executed using:
 
 ```powershell
-python .\playwright_soundcloud_test1.py --output_name shishi
+python .\data_processing\process_pipeline.py --input_dir .\dir_name --out_file_name FolwPic_Set --parse --TPS 15 --DELTA_T 15
 ```
 
 ### Parameters
 
-| Argument        | Description                        |
-| --------------- | ---------------------------------- |
-| `--output_name` | Name used for the generated output |
+| Argument          | Description                                           |
+| ----------------- | ----------------------------------------------------- |
+| `--input_dir`     | Directory containing the pcap and har files                  |
+| `--out_file_name` | Name of the generated output containing all flowpics extracted from Input Directory                       |
+| `--parse`         | Enables parsing of the input data                     |
+| `--TPS`           | Sliding window length in seconds parameter used for creating flowpics |
+| `--DELTA_T`       | Time-difference  between windows in seconds parameter used for creating flowpic     |
 
 ### Example
 
 ```powershell
-python .\playwright_soundcloud_test1.py --output_name shishi
-```
-
-This runs the SoundCloud automation script and creates output using `shishi` as its name.
-
----
-
-# Typical Workflow
-
-A typical workflow for collecting and processing data is:
-
-```text
-        Web Automation
-              │
-              ▼
-     Playwright Scripts
-              │
-              ▼
-        Recorded Data
-              │
-              ▼
-      data_processing/
-              │
-              ▼
-       Processed Data
-              │
-              ▼
-       Images / Histograms
-              │
-              ▼
-    Feature Extraction / ML
-              │
-              ▼
-      Anomaly Detection
-```
-
-For example:
-
-### Step 1 — Collect data
-
-```powershell
-python .\python_for_handin\record_scr.py `
-    --PythonScript .\python_for_handin\playwright_wiki_bot.py `
-    --Count 2 `
-    --CaptureName ok_wiki `
-    --output_dir .\python_for_handin\sts
-```
-
-### Step 2 — Process the collected data
-
-```powershell
-python .\python_for_handin\data_processing\process_pipeline.py `
-    --input_dir .\python_for_handin\sts\ `
-    --out_file_name sc_ok_sts `
+python .\data_processing\process_pipeline.py `
+    --input_dir .\wiki_bot `
+    --out_file_name wiki_bot_all_flowpics `
     --parse `
     --TPS 15 `
     --DELTA_T 15
 ```
-
-### Step 3 — Run ML experiments
-
-Open one of the notebooks:
-
+at the end we will get 
 ```text
-autoencoder-model-build.ipynb
+input_dir/
+│
+├── _pics/
+|    ├── pic_file_1.npy
+|    ├── pic_file_2.npy
+|    ├── pic_file_3.npy
+│    └── ...
+|
+├── _unified_pics/
+│   ├── out_file_name.npy # it contains all flow pics from  _pics folder
+│
+├── filterd_csv/
+|    ├── filterd_basename_0.csv
+|    ├── filterd_basename_1.csv
+|    ├── filterd_basename_2.csv
+│    └── ...
+├── basename_0.csv
+├── basename_0.HAR
+├── basename_1.csv
+├── basename_1.HAR
+├── basename_2.csv
+├── basename_2.HAR
 ```
-
-or
-
-```text
-anomaly-detection-our-autoencodr.ipynb
-```
-
-or
-
-```text
-anomaly-detection-pretrained-models.ipynb
-```
-
 ---
 
-# Machine Learning
 
-The anomaly-detection experiments investigate two main approaches.
-
-## Custom Autoencoder
-
-```text
-Input
-  │
-  ▼
-Convolutional Encoder
-  │
-  ▼
-Latent Representation
-  │
-  ▼
-Decoder
-  │
-  ▼
-Reconstructed Input
-  │
-  ▼
-Reconstruction Error
-  │
-  ▼
-Anomaly Score
-```
-
-The reconstruction error can be used to identify samples that differ significantly from the normal data.
-
-## Pretrained Models
-
-Pretrained computer-vision models can also be used as feature extractors.
-
-```text
-Input Image / Histogram
-          │
-          ▼
-   Pretrained CNN
-          │
-          ▼
- Feature Embedding
-          │
-          ▼
- Anomaly Detection
-```
-
----
-
-# Playwright Automation
-
-The repository contains several browser-automation scripts:
-
-```text
-playwright_wiki_bot.py
-playwright_youtube_bot.py
-playwright_soundcloud_bot.py
-```
-
-They can be used individually or through `record_scr.py`.
-
-Make sure Playwright and its browser dependencies have been installed:
-
-```powershell
-pip install playwright
-playwright install
-```
-
----
-
-# Notes
-
-Some scripts expect a particular directory structure and input format. The examples in this README use the `python_for_handin` directory structure:
-
-```text
-python_for_handin/
-├── data_processing/
-├── sts/
-├── record_scr.py
-├── playwright_wiki_bot.py
-└── ...
-```
-
-Update the paths in the commands when your local directory structure is different.
-
----
 
 # Author
 
