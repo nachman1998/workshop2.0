@@ -127,10 +127,10 @@ input_dir/
 │    └── ...
 ├── basename_0.csv
 ├── basename_0.HAR
-├── basename_1.csv
-├── basename_1.HAR
+├── basename_0.pcap
 ├── basename_2.csv
 ├── basename_2.HAR
+├── basename_2.pcap
 ```
 ---
 
