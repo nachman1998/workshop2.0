@@ -1,40 +1,45 @@
 # Workshop 2.0
 
-A collection of Python tools and experiments for **data processing, web automation, image generation, anomaly detection, and machine learning**.
-
-The repository includes data-processing pipelines, Playwright bots for collecting data, image-processing utilities, and notebooks for anomaly detection using autoencoders and pretrained models.
 
 ---
 
 ## Repository Structure
 
 ```text
+## Repository Structure
+
+```text
 workshop2.0/
 │
-├── data/
-|    ├── filterd_sc_bot_csv
-|
-|
+├── CSV_data/
+│
+├── FlowPics_from_CSV/
+│
 ├── data_processing/
 │   ├── process_pipeline.py
 │   └── ...
+│
+├── playwright_sctipts/
+│   ├── playwright_soundcloud_bot.py
+│   ├── playwright_wiki_bot.py
+│   └── playwright_youtube_bot.py
 │
 ├── anomaly-detection-our-autoencodr.ipynb
 ├── anomaly-detection-pretrained-models.ipynb
 ├── autoencoder-model-build.ipynb
 │
 ├── pics_view.py
-│
-├── playwright_soundcloud_bot.py
-├── playwright_wiki_bot.py
-├── playwright_youtube_bot.py
-│
 ├── record_scr.py
 │
 └── README.md
 ```
 
+```
+
 ### Main Components
+**Data we recorded in CSV form**
+
+The `CSV_data` directory contains CSV for creating FlowPics of the relevant browsing.
 
 **Data Processing**
 
