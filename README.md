@@ -8,7 +8,7 @@
 ```text
 ## Repository Structure
 
-```text
+
 workshop2.0/
 │
 ├── CSV_data/
@@ -32,7 +32,7 @@ workshop2.0/
 ├── record_scr.py
 │
 └── README.md
-```
+
 
 ```
 
