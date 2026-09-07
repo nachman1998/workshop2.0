@@ -121,9 +121,9 @@ input_dir/
 │   ├── out_file_name.npy # it contains all flow pics from  _pics folder
 │
 ├── filterd_csv/
-|    ├── filterd_basename_0.csv
-|    ├── filterd_basename_1.csv
-|    ├── filterd_basename_2.csv
+|    ├── filtered_basename_0.csv
+|    ├── filtered_basename_1.csv
+|    ├── filtered_basename_2.csv
 │    └── ...
 ├── basename_0.csv
 ├── basename_0.HAR
@@ -131,6 +131,44 @@ input_dir/
 ├── basename_2.csv
 ├── basename_2.HAR
 ├── basename_2.pcap
+```
+---
+
+We upload only the filtered CSV files so to process them to FlowPics run the following:
+
+```powershell
+python .\FlowPics_from_CSV\process_pipeline_from_csv.py --input_dir .\dir_name --out_file_name FolwPic_Set --TPS 15 --DELTA_T 15
+```
+it is necessary that all files in FlowPics_from_CSV will be in the same folder
+
+### Parameters
+
+| Argument          | Description                                           |
+| ----------------- | ----------------------------------------------------- |
+| `--input_dir`     | Directory containing the filtered CSV files                 |
+| `--out_file_name` | Name of the generated output containing all flowpics extracted from Input Directory                       |
+| `--parse`         | Enables parsing of the input data                     |
+| `--TPS`           | Sliding window length in seconds parameter used for creating flowpics |
+| `--DELTA_T`       | Time-difference  between windows in seconds parameter used for creating flowpic     |
+
+```
+at the end we will get 
+```text
+input_dir/
+│
+├── _pics/
+|    ├── pic_file_1.npy
+|    ├── pic_file_2.npy
+|    ├── pic_file_3.npy
+│    └── ...
+|
+├── _unified_pics/
+│   ├── out_file_name.npy # it contains all flow pics from  _pics folder
+│
+├── filtered_basename_0.csv
+├── filtered_basename_1.csv
+├── filtered_basename_2.csv
+
 ```
 ---
 
