@@ -11,8 +11,9 @@
 
 workshop2.0/
 │
-├── CSV_data/
-│
+├── CSV_data
+│   ├── wiki_bot_filterd_csv
+│   └── ...
 ├── FlowPics_from_CSV/
 │
 ├── data_processing/
@@ -99,7 +100,6 @@ python .\data_processing\process_pipeline.py --input_dir .\dir_name --out_file_n
 | ----------------- | ----------------------------------------------------- |
 | `--input_dir`     | Directory containing the pcap and har files                  |
 | `--out_file_name` | Name of the generated output containing all flowpics extracted from Input Directory                       |
-| `--parse`         | Enables parsing of the input data                     |
 | `--TPS`           | Sliding window length in seconds parameter used for creating flowpics |
 | `--DELTA_T`       | Time-difference  between windows in seconds parameter used for creating flowpic     |
 
