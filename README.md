@@ -37,6 +37,7 @@ workshop2.0/
 ```
 
 ### Main Components
+
 **Data we recorded in CSV form**
 
 The `CSV_data` directory contains CSV for creating FlowPics of the relevant browsing.
